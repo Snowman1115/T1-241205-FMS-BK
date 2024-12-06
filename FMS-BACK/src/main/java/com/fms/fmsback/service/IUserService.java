@@ -35,17 +35,24 @@ public interface IUserService {
     Boolean save(User user);
 
     /**
-     * Update User
+     * Update User By Id
      * @param user
      * @return boolean
      */
     Boolean update(User user);
 
     /**
-     * Delete User By Ids
+     * Delete User By Id
+     * @param id
+     * @return boolean
+     */
+    Boolean delete(Integer id);
+
+    /**
+     * Delete Users By Ids
      * @param ids
      * @return boolean
      */
-    Boolean delete(List<Integer> ids);
+    Boolean batchDelete(List<Integer> ids);
 
 }

@@ -7,7 +7,7 @@
     <select id="list" resultType="com.fms.fmsback.entity.User">
         SELECT * FROM fms_user
         <where>
-            <if test="name != null">nickname = #{nickname}</if>
+            <if test="nickname != null">nickname = #{nickname}</if>
             <if test="gender != null">gender = #{gender}</if>
             <if test="begin != null">create_time = #{createTime}</if>
             <if test="end != null">update_time = #{updateTime}</if>
@@ -39,7 +39,7 @@
         WHERE id = #{id}
     </update>
 
-    <delete id="delete">
+    <delete id="batchDelete">
         DELETE FROM fms_user
         WHERE id in
         <foreach collection="ids" item="id" separator="," open="(" close=")">

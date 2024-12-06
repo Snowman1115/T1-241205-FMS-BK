@@ -1,10 +1,10 @@
 package com.fms.fmsback.mapper;
 
 import com.fms.fmsback.entity.User;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -46,10 +46,18 @@ public interface UserMapper {
     Boolean update(User user);
 
     /**
-     * Delete User/Users By Id
+     * Delete User By Id
+     * @param id
+     * @return boolean
+     */
+    @Delete("DELETE * FROM fms_user WHERE id = #{id}")
+    Boolean delete(Integer id);
+
+    /**
+     * Delete Users By Ids
      * @param ids
      * @return boolean
      */
-    Boolean delete(List<Integer> ids);
+    Boolean batchDelete(List<Integer> ids);
 
 }

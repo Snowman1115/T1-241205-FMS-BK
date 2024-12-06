@@ -4,6 +4,8 @@ import com.fms.fmsback.entity.PageBean;
 import com.fms.fmsback.entity.User;
 import com.fms.fmsback.mapper.UserMapper;
 import com.fms.fmsback.service.IUserService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +30,13 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public PageBean page(Integer page, Integer pageSize, String nickname, Short gender, LocalDate begin, LocalDate end) {
-        return null;
+        PageHelper.startPage(page, pageSize);
 
+        List<User> userList = userMapper.list(nickname,gender,begin,end);
+        Page<User> users = (Page<User>) userList;
+
+        PageBean pageBean = new PageBean(users.getTotal(), users.getResult());
+        return pageBean;
     }
 
     /**
@@ -63,13 +70,22 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
+     * Delete User By Id
+     * @param id
+     * @return Result
+     */
+    public Boolean delete(Integer id) {
+        return userMapper.delete(id);
+    };
+
+    /**
      * Delete User By Ids
      * @param ids
      * @return boolean
      */
     @Override
-    public Boolean delete(List<Integer> ids) {
-        return userMapper.delete(ids);
+    public Boolean batchDelete(List<Integer> ids) {
+        return userMapper.batchDelete(ids);
     }
 
 }
