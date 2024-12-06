@@ -35,7 +35,8 @@ public interface UserMapper {
      * @param user
      * @return boolean
      */
-    @Insert("INSERT INTO fms_user (username, is_account_non_expired, is_account_non_locked, is_credentials_non_expired, is_enabled, first_name, last_name, nickname, email, phone, gender, is_delete)")
+    @Insert("INSERT INTO fms_user (username, password, first_name, last_name, nickname, email, phone, gender)" +
+            "VALUES (#{username}, #{password}, #{firstName}, #{lastName}, #{nickname}, #{email}, #{phone}, #{gender})")
     Boolean save(User user);
 
     /**
@@ -50,7 +51,7 @@ public interface UserMapper {
      * @param id
      * @return boolean
      */
-    @Delete("DELETE * FROM fms_user WHERE id = #{id}")
+    @Delete("DELETE FROM fms_user WHERE id = #{id}")
     Boolean delete(Integer id);
 
     /**

@@ -19,3 +19,8 @@ pagehelper:
   propertyName: propertyValue
   reasonable: false
   defaultCount: true
+
+logging:
+  level:
+    com.fms.fmsback.controller: INFO
+    org.springframework: INFO
