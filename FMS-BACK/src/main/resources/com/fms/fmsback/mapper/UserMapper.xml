@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fms.fmsback.mapper.UserMapper">
+
+    <select id="list" resultType="com.fms.fmsback.entity.User">
+        SELECT * FROM fms_user
+        <where>
+            <if test="name != null">nickname = #{nickname}</if>
+            <if test="gender != null">gender = #{gender}</if>
+            <if test="begin != null">create_time = #{createTime}</if>
+            <if test="end != null">update_time = #{updateTime}</if>
+        </where>
+        ORDER BY update_time DESC
+    </select>
+
+    <update id="update">
+        UPDATE fms_user
+        <set>
+            <if test="username != null">username = #{username},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="isAccountNonExpired != null">is_account_non_expired = #{isAccountNonExpired},</if>
+            <if test="isAccountNonLocked != null">is_account_non_locked = #{isAccountNonLocked},</if>
+            <if test="isCredentialsNonExpired != null">is_credentials_non_expired = #{isCredentialsNonExpired},</if>
+            <if test="isEnabled != null">is_enabled = #{isEnabled},</if>
+            <if test="firstName != null">first_name = #{firstName},</if>
+            <if test="lastName != null">last_name = #{lastName},</if>
+            <if test="nickname != null">nickname = #{nickname},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="avatar != null">avatar = #{avatar},</if>
+            <if test="isAdmin != null">is_admin = #{isAdmin},</if>
+            <if test="loginDate != null">login_date = #{loginDate},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM fms_user
+        WHERE id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
