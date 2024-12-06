@@ -1,11 +1,13 @@
 package com.fms.fmsback.service.impl;
 
+import com.fms.fmsback.entity.PageBean;
 import com.fms.fmsback.entity.User;
 import com.fms.fmsback.mapper.UserMapper;
 import com.fms.fmsback.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -15,12 +17,17 @@ public class UserServiceImpl implements IUserService {
     private UserMapper userMapper;
 
     /**
-     * Create New User
-     * @param user
-     * @return boolean
+     * Retrieve All User
+     * @param page
+     * @param pageSize
+     * @param nickname
+     * @param gender
+     * @param begin
+     * @param end
+     * @return PageBean
      */
     @Override
-    public Boolean save(User user) {
+    public PageBean page(Integer page, Integer pageSize, String nickname, Short gender, LocalDate begin, LocalDate end) {
         return null;
 
     }
@@ -32,7 +39,17 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public User getById(Integer id) {
-        return null;
+        return userMapper.getUserById(id);
+    }
+
+    /**
+     * Create New User
+     * @param user
+     * @return boolean
+     */
+    @Override
+    public Boolean save(User user) {
+        return userMapper.save(user);
     }
 
     /**
@@ -42,7 +59,7 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public Boolean update(User user) {
-        return null;
+        return userMapper.update(user);
     }
 
     /**
@@ -52,7 +69,7 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public Boolean delete(List<Integer> ids) {
-        return null;
+        return userMapper.delete(ids);
     }
 
 }

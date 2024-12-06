@@ -1,17 +1,24 @@
 package com.fms.fmsback.service;
 
+import com.fms.fmsback.entity.PageBean;
 import com.fms.fmsback.entity.User;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IUserService {
 
     /**
-     * Create New User
-     * @param user
-     * @return boolean
+     * Retrieve All User
+     * @param page
+     * @param pageSize
+     * @param nickname
+     * @param gender
+     * @param begin
+     * @param end
+     * @return PageBean
      */
-    Boolean save(User user);
+    PageBean page(Integer page, Integer pageSize, String nickname, Short gender, LocalDate begin, LocalDate end);
 
     /**
      * Get User By Id
@@ -19,6 +26,13 @@ public interface IUserService {
      * @return User
      */
     User getById(Integer id);
+
+    /**
+     * Create New User
+     * @param user
+     * @return boolean
+     */
+    Boolean save(User user);
 
     /**
      * Update User
