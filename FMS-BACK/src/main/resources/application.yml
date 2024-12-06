@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: File-Management-System
+  datasource:
+    driver-class-name: "com.mysql.cj.jdbc.Driver"
+    url: "jdbc:mysql://localhost:3306/fms?serverTimezone=Asia/Kuala_Lumpur"
+    username: "root"
+    password: "1234"
+
+server:
+  port: 9090
