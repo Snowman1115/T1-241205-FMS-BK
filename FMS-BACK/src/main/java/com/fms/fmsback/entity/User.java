@@ -3,14 +3,16 @@ package com.fms.fmsback.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements Serializable {
+public class User implements UserDetails {
 
     /**
      * User ID
@@ -111,5 +113,10 @@ public class User implements Serializable {
      * Update Time
      */
     private Date updateTime;
+
+    /**
+     * Permission List
+     */
+    Collection<? extends GrantedAuthority> authorities;
 
 }

@@ -1,4 +1,4 @@
-package com.fms.fmsback.common.redis;
+package com.fms.fmsback.common.config.redis;
 
 import jakarta.annotation.Resource;
 import org.springframework.data.redis.core.RedisTemplate;

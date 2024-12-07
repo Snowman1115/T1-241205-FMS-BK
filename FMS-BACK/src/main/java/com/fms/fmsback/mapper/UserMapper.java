@@ -61,4 +61,12 @@ public interface UserMapper {
      */
     Boolean batchDelete(List<Integer> ids);
 
+    /**
+     * Get User By Username
+     * @param username
+     * @return user
+     */
+    @Select("SELECT * FROM fms_user WHERE username = #{username}")
+    User getByUsername(String username);
+
 }

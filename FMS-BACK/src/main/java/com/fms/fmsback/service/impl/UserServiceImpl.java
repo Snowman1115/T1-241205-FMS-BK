@@ -88,4 +88,15 @@ public class UserServiceImpl implements IUserService {
         return userMapper.batchDelete(ids);
     }
 
+    /**
+     * Get User By Username
+     * @param username
+     * @return user
+     */
+    @Override
+    public User getByUsername(String username) {
+        return userMapper.getByUsername(username);
+    };
+
+
 }

@@ -55,4 +55,11 @@ public interface IUserService {
      */
     Boolean batchDelete(List<Integer> ids);
 
+    /**
+     * Get User By Username
+     * @param username
+     * @return user
+     */
+    User getByUsername(String username);
+
 }
