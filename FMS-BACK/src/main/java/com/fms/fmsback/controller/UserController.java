@@ -1,8 +1,10 @@
 package com.fms.fmsback.controller;
 
+import com.fms.fmsback.common.constants.ResultConstants;
 import com.fms.fmsback.common.result.Result;
 import com.fms.fmsback.entity.PageBean;
 import com.fms.fmsback.entity.User;
+import com.fms.fmsback.exception.ServiceException;
 import com.fms.fmsback.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,8 +64,11 @@ public class UserController {
     @PostMapping
     public Result save(@RequestBody User user) {
         log.info("Create New User: {}", user);
-        iUserService.save(user);
-        return Result.success();
+        if (iUserService.save(user)) {
+            return Result.success(null, "User Added Successfully.");
+        };
+        log.error("User Creation Failed: {}", user);
+        throw new ServiceException(ResultConstants.INTERNAL_SERVER_ERROR, "Server Error, Failed to Save user. Please Try Again.");
     };
 
     /**
@@ -74,8 +79,11 @@ public class UserController {
     @PutMapping
     public Result update(@RequestBody User user) {
       log.info("Update User: {}", user);
-      iUserService.update(user);
-      return Result.success();
+      if (iUserService.update(user)) {
+          return Result.success(null, "User Updated Successfully.");
+      };
+      log.error("User Update Failed (Not Found): {}", user);
+      throw new ServiceException(ResultConstants.NOT_FOUND, "Update Fail, User Not Found. Please Try Again.");
     };
 
     /**
@@ -86,15 +94,21 @@ public class UserController {
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
       log.info("Delete User: {}", id);
-      iUserService.delete(id);
-      return Result.success();
+      if (iUserService.delete(id)) {
+          return Result.success(ResultConstants.OK,"User Removed Successfully");
+      };
+      log.error("Failed To Remove UserId (Not Found): {}", id);
+      return Result.error(ResultConstants.INTERNAL_SERVER_ERROR,"Server Error, Failed to Delete User. Please Try Again.");
     };
 
     @DeleteMapping("/del/batch/{ids}")
     public Result batchDelete(@PathVariable List<Integer> ids) {
         log.info("Batch Delete Users: {}", ids);
-        iUserService.batchDelete(ids);
-        return Result.success();
+        if (iUserService.batchDelete(ids)) {
+            return Result.success(ResultConstants.OK,"Users Removed Successfully");
+        };
+        log.error("Failed To Remove Users Id: {}", ids);
+        return Result.error(ResultConstants.INTERNAL_SERVER_ERROR,"Server Error, Failed to Remove  Users. Please Try Again.");
     };
 
 }
