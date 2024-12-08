@@ -62,4 +62,12 @@ public interface IUserService {
      */
     User getByUsername(String username);
 
+    /**
+     * Get User By Username & Password
+     * @param username
+     * @param password
+     * @return User
+     */
+    User getByUsernameNPassword(String username, String password);
+
 }

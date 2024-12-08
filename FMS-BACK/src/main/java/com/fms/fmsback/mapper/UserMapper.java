@@ -69,4 +69,13 @@ public interface UserMapper {
     @Select("SELECT * FROM fms_user WHERE username = #{username}")
     User getByUsername(String username);
 
+    /**
+     * Get User By Username & Password
+     * @param username
+     * @param password
+     * @return User
+     */
+    @Select("SELECT * FROM fms_user WHERE username = #{username} AND password = #{password}")
+    User getByUsernameNPassword(String username, String password);
+
 }

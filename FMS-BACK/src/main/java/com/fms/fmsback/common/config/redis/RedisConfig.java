@@ -16,15 +16,13 @@ public class RedisConfig {
         RedisTemplate<Object, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
 
-        FastJsonRedisSerializer serializer = new FastJsonRedisSerializer(Object.class);
-
-        // Utilize StringRedisSerializer to List DescOrder or AscOrder in Redis's Key Value
+        // Use StringRedisSerializer for both keys and values for simple string storage
         template.setKeySerializer(new StringRedisSerializer());
-        template.setKeySerializer(serializer);
+        template.setValueSerializer(new StringRedisSerializer());
 
-        // Hash Key utilize StringRedisSerializer's AscOrder
+        // Set the default serializers for hash key and hash value
         template.setHashKeySerializer(new StringRedisSerializer());
-        template.setHashKeySerializer(serializer);
+        template.setHashValueSerializer(new StringRedisSerializer());
 
         template.afterPropertiesSet();
         return template;

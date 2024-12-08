@@ -98,5 +98,15 @@ public class UserServiceImpl implements IUserService {
         return userMapper.getByUsername(username);
     };
 
+    /**
+     * Get User By Username & Password
+     * @param username
+     * @param password
+     * @return User
+     */
+    @Override
+    public User getByUsernameNPassword(String username, String password) {
+        return userMapper.getByUsernameNPassword(username, password);
+    }
 
 }

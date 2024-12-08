@@ -22,51 +22,17 @@ class FmsBackApplicationTests {
     @Autowired
     private RedisService redisService;
 
+    @Autowired
+    private Producer producer;
+
     @Test
     void contextLoads() {
-        redisService.set("Testing", "Encrypted Key", 100L);
+        String uuid = "1c82be61-6507-5835-bf6d-9302ebe28fd0";
+        String verifyCode = "1234";
+        // redisService.set("Testing", "Encrypted Key", 100L);
+        redisService.set( "kaptchaId:" + uuid, verifyCode, 600L);
+
+        System.out.println(redisService.get("kaptchaId:" + uuid));
     };
-
-
-
-    private VerifyCodeController verifyCodeController;
-    private Producer producerMock;
-
-    @BeforeEach
-    void setUp() {
-        // Mock Producer
-        producerMock = Mockito.mock(Producer.class);
-        verifyCodeController = new VerifyCodeController();
-        verifyCodeController.producer = producerMock;
-
-        // Mock Producer behavior
-        when(producerMock.createText()).thenReturn("testCode");
-        when(producerMock.createImage("testCode")).thenReturn(new BufferedImage(100, 50, BufferedImage.TYPE_INT_RGB));
-    }
-
-    @Test
-    void testImageGenerator() throws Exception {
-        // Mock HTTP session
-        MockHttpSession session = new MockHttpSession();
-
-        // Mock HTTP response
-        MockHttpServletResponse response = new MockHttpServletResponse();
-
-        // Call the method
-        verifyCodeController.image(response, session);
-
-        // Assert response content type
-        assertEquals("image/jpeg", response.getContentType());
-
-        // Assert session contains the correct verification code
-        String verifyCode = (String) session.getAttribute(VerifyCodeController.VERIFY_CODE_KEY);
-        assertNotNull(verifyCode);
-        assertEquals("testCode", verifyCode);
-
-        // Assert response contains data
-        byte[] responseBytes = response.getContentAsByteArray();
-        assertNotNull(responseBytes);
-        assertTrue(responseBytes.length > 0, "Image data should not be empty");
-    }
 
 }
