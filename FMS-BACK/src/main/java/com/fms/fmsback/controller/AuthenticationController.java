@@ -5,7 +5,9 @@ import com.fms.fmsback.common.constants.ResultConstants;
 import com.fms.fmsback.common.result.Result;
 import com.fms.fmsback.entity.User;
 import com.fms.fmsback.exception.ServiceException;
+import com.fms.fmsback.service.IAuthenticationService;
 import com.fms.fmsback.service.IUserService;
+import com.fms.fmsback.service.impl.AuthenticationImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,29 +20,20 @@ import javax.servlet.http.HttpServletRequest;
 public class AuthenticationController {
 
     @Autowired
-    private IUserService iUserService;
-
-    @Autowired
-    private RedisService redisService;
+    private IAuthenticationService iAuthenticationService;
 
     @PostMapping("/login")
     public Result login(@RequestParam String username,
                         @RequestParam String password,
                         @RequestParam String verifyCode,
                         @RequestParam String kaptchaUUID) {
-        String kaptchaValue = redisService.get("kaptchaId:" + kaptchaUUID);
-        if (kaptchaValue == null) {
-            throw new ServiceException(ResultConstants.REQUEST_TIMEOUT, "Verify Code Expired, Please Try Again!");
+        log.info("Login Authentication: {}, {}, {}, {}", username, password, verifyCode, kaptchaUUID);
+        String jwt = iAuthenticationService.login(username, password, verifyCode, kaptchaUUID);
+        if (!jwt.isEmpty()) {
+            log.info("Login Successful: {}", jwt);
+            return Result.success(jwt);
         };
-        if (!verifyCode.equals(kaptchaValue)) {
-            throw new ServiceException(ResultConstants.NOT_FOUND, "Invalid Verification Code, Please Try Again!");
-        };
-        redisService.del("kaptchaId:" + kaptchaUUID);
-        User user = iUserService.getByUsernameNPassword(username, password);
-        if (user != null) {
-            log.info("Login Successful.");
-        }
-        return Result.error(ResultConstants.NOT_FOUND, "Username Or Credential Incorrect! Please Try Again.");
+        throw new ServiceException(ResultConstants.INTERNAL_SERVER_ERROR, "Server Error, Failed to login. Please Try Again.");
     };
 
     @PostMapping("/logout")

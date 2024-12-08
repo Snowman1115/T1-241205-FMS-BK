@@ -1,7 +1,10 @@
 package com.fms.fmsback;
 
+import com.alibaba.fastjson.JSON;
 import com.fms.fmsback.common.config.redis.RedisService;
+import com.fms.fmsback.common.utils.JwtUtil;
 import com.fms.fmsback.controller.VerifyCodeController;
+import com.fms.fmsback.entity.User;
 import com.google.code.kaptcha.Producer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,20 +22,18 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 class FmsBackApplicationTests {
 
-    @Autowired
-    private RedisService redisService;
-
-    @Autowired
-    private Producer producer;
-
     @Test
     void contextLoads() {
-        String uuid = "1c82be61-6507-5835-bf6d-9302ebe28fd0";
-        String verifyCode = "1234";
-        // redisService.set("Testing", "Encrypted Key", 100L);
-        redisService.set( "kaptchaId:" + uuid, verifyCode, 600L);
+        User user = new User();
+        user.setId(12L);
+        user.setEmail("Testing@gmail.com");
 
-        System.out.println(redisService.get("kaptchaId:" + uuid));
+        String jsonObject = JSON.toJSONString(user);
+        System.out.println(jsonObject);
+        String token = JwtUtil.createJwt(jsonObject,null);
+        System.out.println(token);
+
+        System.out.println(JwtUtil.getClaimsFromToken(token));
     };
 
 }
