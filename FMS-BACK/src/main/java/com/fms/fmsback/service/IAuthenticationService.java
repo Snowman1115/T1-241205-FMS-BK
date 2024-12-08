@@ -16,6 +16,14 @@ public interface IAuthenticationService {
     String login(String username, String password, String verifyCode, String kaptchaUUID);
 
     /**
+     * Registration Function
+     * @param user
+     * @param verifyCode
+     * @param kaptchaUUID
+     */
+    Boolean register(User user, String verifyCode, String kaptchaUUID);
+
+    /**
      * Logout Function
      * @param jwt
      */

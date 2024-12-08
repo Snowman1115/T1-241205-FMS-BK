@@ -23,8 +23,8 @@ public class RedisService {
     }
 
     // Clear Ram
-    public void del(String key) {
-        redisTemplate.delete(key);
+    public Boolean del(String key) {
+        return redisTemplate.delete(key);
     }
 
 }

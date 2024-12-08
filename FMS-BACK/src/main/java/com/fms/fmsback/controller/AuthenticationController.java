@@ -31,14 +31,34 @@ public class AuthenticationController {
         String jwt = iAuthenticationService.login(username, password, verifyCode, kaptchaUUID);
         if (!jwt.isEmpty()) {
             log.info("Login Successful: {}", jwt);
-            return Result.success(jwt);
+            return Result.success(jwt, "Login Successful.");
         };
+        log.error("Failed To Login (Server Error): {}, {}, {}, {}", username, password, verifyCode, kaptchaUUID);
         throw new ServiceException(ResultConstants.INTERNAL_SERVER_ERROR, "Server Error, Failed to login. Please Try Again.");
     };
 
+    @PostMapping("/register")
+    public Result register(@RequestBody User user,
+                           @RequestParam String verifyCode,
+                           @RequestParam String kaptchaUUID) {
+        log.info("User Registration: {}, {}, {}", user, verifyCode, kaptchaUUID);
+        if (iAuthenticationService.register(user, verifyCode, kaptchaUUID)) {
+            log.info("Registration Successful: {}", user);
+            return Result.success(null, "Account Registered Successful.");
+        }
+        log.error("Failed To Login (Server Error): {}, {}, {}", user);
+        throw new ServiceException(ResultConstants.INTERNAL_SERVER_ERROR, "Server Error, Failed to Register. Please Try Again.");
+    };
+
     @PostMapping("/logout")
-    public Result logout(HttpServletRequest request, HttpServletRequest response) {
-        return null;
+    public Result logout(@RequestParam String jwt) {
+        log.info("Logging Out: {}", jwt);
+        if (iAuthenticationService.logout(jwt)) {
+            log.info("Logged Out Successful: {}", jwt);
+            return Result.success(null,"Logged Out Successfully.");
+        }
+        log.error("Failed To Logout (Server Error): {}", jwt);
+        throw new ServiceException(ResultConstants.INTERNAL_SERVER_ERROR, "Server Error, Failed to logout. Please Try Again.");
     };
 
     @PutMapping("/reset/password")
