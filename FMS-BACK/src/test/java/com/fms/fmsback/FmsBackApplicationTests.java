@@ -22,18 +22,13 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 class FmsBackApplicationTests {
 
+    @Autowired
+    private RedisService redisService;
+
     @Test
     void contextLoads() {
-        User user = new User();
-        user.setId(12L);
-        user.setEmail("Testing@gmail.com");
-
-        String jsonObject = JSON.toJSONString(user);
-        System.out.println(jsonObject);
-        String token = JwtUtil.createJwt(jsonObject,null);
-        System.out.println(token);
-
-        System.out.println(JwtUtil.getClaimsFromToken(token));
+        String jwt = redisService.get("jwtToken:0f55bcba-c3d3-437f-b206-7ca65577b541");
+        System.out.println(JwtUtil.getClaimsFromToken(jwt));
     };
 
 }

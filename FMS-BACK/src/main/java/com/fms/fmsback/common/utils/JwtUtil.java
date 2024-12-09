@@ -1,5 +1,6 @@
 package com.fms.fmsback.common.utils;
 
+import com.fms.fmsback.exception.ServiceException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -41,11 +42,15 @@ public class JwtUtil {
      * Decode Jwt
      */
     public static Claims getClaimsFromToken(String jwt) {
-        SecretKey secretKey = generalKey();
-        return Jwts.parser()
-                .setSigningKey(secretKey)
-                .parseClaimsJws(jwt)
-                .getBody();
+        try {
+            SecretKey secretKey = generalKey();
+            return Jwts.parser()
+                    .setSigningKey(secretKey)
+                    .parseClaimsJws(jwt)
+                    .getBody();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
