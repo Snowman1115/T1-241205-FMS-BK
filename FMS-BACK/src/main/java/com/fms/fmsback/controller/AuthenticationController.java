@@ -65,7 +65,5 @@ public class AuthenticationController {
     public Result resetPassword(@RequestBody User user) {
       return null;
     };
-
-
-
+    
 }

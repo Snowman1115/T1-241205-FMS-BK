@@ -46,6 +46,12 @@ public class AuthenticationImpl implements IAuthenticationService {
         throw new ServiceException(ResultConstants.NOT_FOUND, "Username Or Credential Incorrect! Please Try Again.");
     }
 
+    /**
+     * Register Authentication Function
+     * @param user
+     * @param verifyCode
+     * @param kaptchaUUID
+     */
     @Override
     public Boolean register(User user, String verifyCode, String kaptchaUUID) {
         validateKaptcha(verifyCode, kaptchaUUID);
@@ -59,6 +65,10 @@ public class AuthenticationImpl implements IAuthenticationService {
         return false;
     }
 
+    /**
+     * Logout Function
+     * @param jwt
+     */
     @Override
     public Boolean logout(String jwt) {
         try {
@@ -72,8 +82,19 @@ public class AuthenticationImpl implements IAuthenticationService {
         return false;
     }
 
+    /**
+     * Reset Password Function
+     * @param id
+     * @param oldPassword
+     * @param newPassword
+     */
     @Override
     public Boolean resetPassword(String id, String oldPassword, String newPassword) {
+        return null;
+    }
+
+    @Override
+    public Boolean refreshToken(String jwt) {
         return null;
     }
 

@@ -33,6 +33,11 @@ public interface IAuthenticationService {
      * Reset Password Function
      * @param
      */
-    Boolean resetPassword(@RequestParam String id, String oldPassword, String newPassword);
+    Boolean resetPassword(String id, String oldPassword, String newPassword);
+
+    /**
+     * Refresh JWT Token Session
+     */
+    Boolean refreshToken(String jwt);
 
 }
