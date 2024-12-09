@@ -12,6 +12,7 @@ import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -41,6 +42,8 @@ public class AuthenticationImpl implements IAuthenticationService {
             String userJsonObject = JSON.toJSONString(user);
             String jwt = JwtUtil.createJwt(uuid, userJsonObject, null);
             redisService.set("jwtToken:" + uuid, jwt, JwtUtil.JWT_TTL);
+            user.setLoginDate(new Date());
+            iUserService.update(user);
             return jwt;
         }
         throw new ServiceException(ResultConstants.NOT_FOUND, "Username Or Credential Incorrect! Please Try Again.");

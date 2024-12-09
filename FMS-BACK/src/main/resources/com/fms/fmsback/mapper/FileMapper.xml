@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fms.fmsback.mapper.FileMapper">
+
+    <select id="list" resultType="com.fms.fmsback.entity.File">
+        SELECT * FROM fms_file
+        <where>
+            <if test="fileName != null">file_name like concat('%',#{fileName},'%')</if>
+            <if test="fileType != null">type = fileType</if>
+            <if test="userId != null">user_id = #{userId}</if>
+            <if test="folderId != null">folder_id = #{folderId}</if>
+        </where>
+        ORDER BY update_time DESC
+    </select>
+
+    <update id="update">
+        UPDATE fms_file
+        <set>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="folderId != null">folder_id = #{folderId},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="size != null">size = #{size},</if>
+            <if test="url != null">url = #{url},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="enable != null">enable = #{enable},</if>
+            <if test="md5 != null">md5 = #{md5},</if>
+            <if test="lastAccess != null">last_access = #{lastAccess},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="batchDelete">
+        DELETE FROM fms_file
+        WHERE id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
