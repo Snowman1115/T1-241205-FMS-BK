@@ -1,5 +1,7 @@
 package com.fms.fmsback.common.utils;
 
+import com.alibaba.fastjson.JSON;
+import com.fms.fmsback.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -51,6 +53,12 @@ public class JwtUtil {
             return null;
         }
     }
+
+    public static User getUserFromJwt(String jwt) {
+        Claims claims = JwtUtil.getClaimsFromToken(jwt);
+        String userJson = claims.getSubject();
+        return JSON.parseObject(userJson, User.class);
+    };
 
     /**
      * Private JWT Generator

@@ -1,11 +1,15 @@
 package com.fms.fmsback.service;
 
-import com.fms.fmsback.entity.File;
+import com.fms.fmsback.entity.Files;
 import com.fms.fmsback.entity.PageBean;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.net.http.HttpResponse;
 import java.util.List;
 
-public interface IFileService {
+public interface IFilesService {
 
     /**
      * Retrieve All File Based On User UserId / FolderId
@@ -20,23 +24,31 @@ public interface IFileService {
     /**
      * Get File By Id
      * @param id
+     * @param request
      * @return File
      */
-    File getById(Integer id);
+    Files getById(Integer id, HttpServletRequest request);
+
+    /**
+     * Get File By MD5
+     * @param md5
+     * @return Files
+     */
+    List<Files> getByMd5(String md5);
 
     /**
      * Create New File
      * @param file
      * @return Boolean
      */
-    Boolean save(File file);
+    Boolean save(Files file);
 
     /**
      * Update File By Id
      * @param file
      * @return Boolean
      */
-    Boolean update(File file);
+    Boolean update(Files file);
 
     /**
      * Delete File By Id
@@ -51,5 +63,12 @@ public interface IFileService {
      * @return Boolean
      */
     Boolean batchDelete(List<Integer> ids);
+
+    /**
+     * Upload Method
+     * @param file
+     * @param userId
+     */
+    String upload(MultipartFile file, Long userId) throws IOException;
 
 }

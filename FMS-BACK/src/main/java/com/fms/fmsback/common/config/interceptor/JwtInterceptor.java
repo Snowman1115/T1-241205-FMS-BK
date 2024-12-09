@@ -30,7 +30,7 @@ public class JwtInterceptor implements HandlerInterceptor {
             return true;
         }
         String token = request.getHeader("token");
-        if (token.isEmpty()) {
+        if (token == null) {
             throw new ServiceException(ResultConstants.UNAUTHORIZED, "Token missing. Please Login.");
         }
         Claims claims = JwtUtil.getClaimsFromToken(token);

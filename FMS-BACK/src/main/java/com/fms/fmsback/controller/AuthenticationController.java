@@ -1,18 +1,16 @@
 package com.fms.fmsback.controller;
 
-import com.fms.fmsback.common.config.redis.RedisService;
 import com.fms.fmsback.common.constants.ResultConstants;
 import com.fms.fmsback.common.result.Result;
+import com.fms.fmsback.common.utils.JwtUtil;
 import com.fms.fmsback.entity.User;
 import com.fms.fmsback.exception.ServiceException;
 import com.fms.fmsback.service.IAuthenticationService;
-import com.fms.fmsback.service.IUserService;
-import com.fms.fmsback.service.impl.AuthenticationImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Slf4j
 @RestController
@@ -51,8 +49,8 @@ public class AuthenticationController {
     };
 
     @PostMapping("/logout")
-    public Result logout(@RequestParam String jwt) {
-        log.info("Logging Out: {}", jwt);
+    public Result logout(HttpServletRequest request) {
+        String jwt = request.getHeader("token");
         if (iAuthenticationService.logout(jwt)) {
             log.info("Logged Out Successful: {}", jwt);
             return Result.success(null,"Logged Out Successfully.");

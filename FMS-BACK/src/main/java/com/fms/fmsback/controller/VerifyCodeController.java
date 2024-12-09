@@ -45,11 +45,13 @@ public class VerifyCodeController {
 
     @GetMapping("/image")
     public void image(@RequestParam String uuid, HttpServletResponse response) throws IOException {
+        log.info("Generating Katpcha: {}", uuid);
         final BufferedImage image = iVerifyCodeService.image(uuid);
         if (!Objects.isNull(image)) {
             response.setContentType(MimeTypeUtils.IMAGE_JPEG_VALUE);
             ImageIO.write(image, "jpeg", response.getOutputStream());
         } else {
+            log.info("Katpcha Generated Successful: {}", image.toString());
             response.setContentType("text/plain");
             response.setStatus(ResultConstants.BAD_REQUEST); // 400 Bad Request
             response.getOutputStream().write("Failed to generate image".getBytes(StandardCharsets.UTF_8));

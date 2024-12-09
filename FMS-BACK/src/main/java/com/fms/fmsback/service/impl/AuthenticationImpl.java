@@ -76,13 +76,15 @@ public class AuthenticationImpl implements IAuthenticationService {
     public Boolean logout(String jwt) {
         try {
             Claims claims = JwtUtil.getClaimsFromToken(jwt);
-            if (redisService.del("jwtToken:" + claims.getId())) {
-                return true;
-            };
+            String tokenKey = "jwtToken:" + claims.getId();
+            boolean isDeleted = redisService.del(tokenKey);
+            if (!isDeleted) {
+                throw new ServiceException(ResultConstants.BAD_REQUEST, "Failed to logout, illegal token.");
+            }
+            return true;
         } catch (Exception e) {
-            throw new ServiceException(ResultConstants.BAD_REQUEST, "Failed To Logout, Illegal Token.");
-        };
-        return false;
+            throw new ServiceException(ResultConstants.BAD_REQUEST, "Failed to logout, illegal token.");
+        }
     }
 
     /**

@@ -2,15 +2,16 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fms.fmsback.mapper.FileMapper">
+<mapper namespace="com.fms.fmsback.mapper.FilesMapper">
 
-    <select id="list" resultType="com.fms.fmsback.entity.File">
+    <select id="list" resultType="com.fms.fmsback.entity.Files">
         SELECT * FROM fms_file
         <where>
-            <if test="fileName != null">file_name like concat('%',#{fileName},'%')</if>
-            <if test="fileType != null">type = fileType</if>
-            <if test="userId != null">user_id = #{userId}</if>
-            <if test="folderId != null">folder_id = #{folderId}</if>
+            <if test="fileName != null and fileName != ''">name LIKE CONCAT('%', #{fileName}, '%')</if>
+            <if test="fileType != null and fileType != ''">AND type = #{fileType}</if>
+            <if test="userId != null">AND user_id = #{userId}</if>
+            <if test="folderId != null">AND folder_id = #{folderId}</if>
+            and is_delete = 0
         </where>
         ORDER BY update_time DESC
     </select>

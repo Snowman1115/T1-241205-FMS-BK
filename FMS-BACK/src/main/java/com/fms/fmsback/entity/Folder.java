@@ -35,7 +35,7 @@ public class Folder {
     /**
      * All Files
      */
-    private List<File> files;
+    private List<Files> files;
 
     /**
      * Create Time

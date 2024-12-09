@@ -101,6 +101,11 @@ public class UserController {
       return Result.error(ResultConstants.INTERNAL_SERVER_ERROR,"Server Error, Failed to Delete User. Please Try Again.");
     };
 
+    /**
+     * Delete User By Ids
+     * @param ids
+     * @return Result
+     */
     @DeleteMapping("/del/batch/{ids}")
     public Result batchDelete(@PathVariable List<Integer> ids) {
         log.info("Batch Delete Users: {}", ids);
@@ -108,7 +113,7 @@ public class UserController {
             return Result.success(ResultConstants.OK,"Users Removed Successfully");
         };
         log.error("Failed To Remove Users Id: {}", ids);
-        return Result.error(ResultConstants.INTERNAL_SERVER_ERROR,"Server Error, Failed to Remove  Users. Please Try Again.");
+        return Result.error(ResultConstants.INTERNAL_SERVER_ERROR,"Server Error, Failed to Remove Users. Please Try Again.");
     };
 
 }

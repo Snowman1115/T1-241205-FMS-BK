@@ -1,7 +1,6 @@
 package com.fms.fmsback.mapper;
 
-import com.fms.fmsback.entity.File;
-import com.fms.fmsback.entity.User;
+import com.fms.fmsback.entity.Files;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -10,7 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 @Mapper
-public interface FileMapper {
+public interface FilesMapper {
 
     /**
      * Retrieve All Folder BasedOn fileName/userId/folderId
@@ -19,7 +18,7 @@ public interface FileMapper {
      * @param folderId
      * @return File List
      */
-    public List<File> list(String fileName, String fileType, String userId, Long folderId);
+    public List<Files> list(String fileName, String fileType, Long userId, Long folderId);
 
     /**
      * Get File Details By Id
@@ -27,7 +26,15 @@ public interface FileMapper {
      * @return File
      */
     @Select("SELECT * FROM fms_file WHERE id = #{id}")
-    File getFileById(Integer id);
+    Files getFileById(Integer id);
+
+    /**
+     * Get File Details By Md5
+     * @param md5
+     * @return File
+     */
+    @Select("SELECT * FROM fms_file WHERE md5 = #{md5}")
+    List<Files> getFileByMd5(String md5);
 
     /**
      * Insert New File
@@ -36,14 +43,14 @@ public interface FileMapper {
      */
     @Insert("INSERT INTO fms_file (user_id, folder_id, name, type, size, url, md5)" +
             "VALUES (#{userId},#{folderId},#{name},#{type},#{size},#{url},#{md5})")
-    Boolean save(File file);
+    Boolean save(Files file);
 
     /**
      * Update File By Id
      * @param file
      * @return Boolean
      */
-    Boolean update(File file);
+    Boolean update(Files file);
 
     /**
      * Delete File By Id
