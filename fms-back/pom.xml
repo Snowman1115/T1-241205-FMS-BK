@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.fms</groupId>
-    <artifactId>FMS-BACK</artifactId>
+    <artifactId>fms-back</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>FMS-BACK</name>
     <description>FMS-BACK</description>
