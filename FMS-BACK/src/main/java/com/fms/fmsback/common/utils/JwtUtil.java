@@ -1,6 +1,5 @@
 package com.fms.fmsback.common.utils;
 
-import com.fms.fmsback.exception.ServiceException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -69,7 +68,7 @@ public class JwtUtil {
         return Jwts.builder()
                 .setId(uuid) // Unique ID
                 .setSubject(subject) // Data (JSON Format)
-                .setIssuer("PMS") // Issuer
+                .setIssuer("FMS") // Issuer
                 .setIssuedAt(now) // Issue Date
                 .signWith(signatureAlgo, secretKey) // Encrypt Algorithm Methods N SecretKey
                 .setExpiration(expDate); // Expired Date
