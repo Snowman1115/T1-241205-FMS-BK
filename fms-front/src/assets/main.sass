@@ -1,15 +1,24 @@
 /* Resetting margins, paddings, and box model for consistent layout */
 *
+  font-family: Maiandra GD, system-ui, Avenir, Helvetica, Arial, sans-serif
+  line-height: 1.5
+  font-weight: 400
+  color-scheme: light dark
   margin: 0
   padding: 0
   box-sizing: border-box
 
-html, body
+html, body, #app
+  padding: 0px
+  margin: 0px
   height: 100%
-  overflow: hidden /* Prevent any scrolling */
+  width: 100%
+  max-width: 100%
+  box-sizing: border-box
+  overflow: hidden
+  text-decoration: none
 
 body
-  font-family: 'Arial', sans-serif /* Set a default font family */
   background-color: #f4f4f4 /* Light background color as fallback */
   display: flex
   align-items: center

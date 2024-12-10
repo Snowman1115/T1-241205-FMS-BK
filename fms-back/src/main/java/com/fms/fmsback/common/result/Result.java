@@ -23,7 +23,7 @@ public class Result {
     /**
      * Result Object
      */
-    private Object object;
+    private Object data;
 
     /**
      * Return Success With Empty Message & Data

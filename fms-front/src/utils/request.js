@@ -7,10 +7,17 @@ const request = axios.create({
 })
 
 request.interceptors.request.use(config => {
-    config.headers['Content-Type'] = 'application/json;charset=UTF-8';
-    let user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {}
-    if (user) {
-        config.headers['token'] = user.token;
+    if (config.data instanceof FormData) {
+        // Remove Content-Type to let the browser set it for FormData
+        delete config.headers['Content-Type'];
+    } else {
+        // Set default Content-Type for non-FormData requests
+        config.headers['Content-Type'] = 'application/json;charset=UTF-8';
+    }
+
+    let token = localStorage.getItem('fms_user') ? JSON.parse(localStorage.getItem('fms_user')) : {}
+    if (token) {
+        config.headers['token'] = token;
     }
     return config;
 }), error => {

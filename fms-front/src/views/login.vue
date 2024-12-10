@@ -5,7 +5,10 @@
     </div>
     <div class="right-container">
       <div class="login-form-container">
-        <h2>File Management System</h2>
+        <div class="login-form-container-title">
+          <div class="logo"><img src="@/assets/logo/fms-logo.png"/></div>
+          <div class="title"><h2>File Management System</h2></div>
+        </div>
         <div class="form-container">
           <el-form
               class="login-form"
@@ -15,20 +18,21 @@
               @submit.prevent
           >
             <el-form-item prop="username">
-              <el-input size="medium" clearable placeholder="Enter Username/Email" v-model.trim="formData.username">
+              <el-input clearable placeholder="Enter Username/Email" v-model.trim="formData.username">
                 <template #prefix><el-icon><UserFilled/></el-icon></template>
               </el-input>
             </el-form-item>
             <el-form-item prop="password">
-              <el-input size="medium" clearable placeholder="Enter Password" v-model.trim="formData.password">
+              <el-input clearable placeholder="Enter Password" v-model.trim="formData.password">
                 <template #prefix><el-icon><Lock/></el-icon></template>
               </el-input>
             </el-form-item>
             <el-form-item prop="verifyCode">
               <div class="check-code-panel">
-                <el-input size="medium" clearable placeholder="Enter Verification Code " v-model.trim="formData.verifyCode">
+                <el-input clearable placeholder="Enter Verification Code " v-model.trim="formData.verifyCode">
                   <template #prefix><el-icon><Ticket/></el-icon></template>
-                </el-input><img :src="kaptchaImg" @click="getCaptcha" class="check-code"/>
+                </el-input>
+                <img :src="kaptchaImg" @click="getCaptcha" class="check-code"/>
               </div>
             </el-form-item>
             <el-form-item>
@@ -36,7 +40,7 @@
             </el-form-item>
           </el-form>
         </div>
-        <h4>Not A Member Yet? <span>Register Now</span></h4>
+        <h4>Not A Member Yet? <span @click="router.push('/register')">Register Now</span></h4>
         <h3>Developed By Sn0w_15 @MIT Licenses</h3>
       </div>
     </div>
@@ -49,6 +53,7 @@ import { v4 as genUUID} from 'uuid';
 import {UserFilled, Lock, Ticket} from '@element-plus/icons-vue';
 import message from "@/utils/message.js";
 import request from "@/utils/request.js";
+import router from "@/router/index.js";
 
 let formDataRef = ref(null);
 let kaptchaImg = ref("");
@@ -76,7 +81,9 @@ const handleLogin = () => {
           getCaptcha();
         } else {
           message.success(res.message);
-
+          const jwt = res.data;
+          localStorage.setItem("fms_user", JSON.stringify(jwt))
+          router.push("/")
         }
       }).catch(error => {
         message.error(error.message || 'An error occurred');
@@ -98,11 +105,16 @@ const getCaptcha = async () => {
     formData.kaptchaUUID = newUUID;
     kaptchaImg.value = 'http://localhost:9090/verifyCode/image?uuid=' + newUUID;
   }).catch(error => {
-    message.error(res.message);
+    message.error(error);
   })
 };
 
 onMounted(() => {
+  let user = localStorage.getItem("fms_user") ? JSON.parse(localStorage.getItem("fms_user")) : null;
+  if (user != null) {
+    message.error("Please Log Out To Login.");
+    router.push("/");
+  }
   getCaptcha();
   refreshCaptchaInterval = setInterval(() => {
     getCaptcha();
@@ -145,8 +157,8 @@ onBeforeUnmount(() => {
   .right-container {
     flex: 1;
     display: flex;
-    justify-content: center; /* Center the form horizontally */
-    align-items: center; /* Center the form vertically */
+    justify-content: center;
+    align-items: center;
 
     .login-form-container {
       width: 400px;
@@ -160,12 +172,25 @@ onBeforeUnmount(() => {
       flex-direction: column;
       align-items: center;
 
-      h2 {
-        color: #2d2d2d;
+      .login-form-container-title {
+        display: flex;
+        align-items: center;
+        gap: 20px;
         margin-bottom: 20px;
-        font-weight: 600;
-        font-size: 24px;
         text-align: center;
+
+        .logo img {
+          width: 25px;
+          margin-top: 10px;
+          object-fit: contain;
+        }
+
+        .title h2 {
+          color: #2d2d2d;
+          font-weight: 600;
+          font-size: 24px;
+          margin: 0;
+        }
       }
 
       .form-container {
@@ -205,8 +230,8 @@ onBeforeUnmount(() => {
   }
 
   h3 {
-    font-size: 12px; /* Smaller size */
-    color: #a1a1a1; /* Grey color */
+    font-size: 12px;
+    color: #a1a1a1;
     text-align: center;
     margin-top: 20px;
   }

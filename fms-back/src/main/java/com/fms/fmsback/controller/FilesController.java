@@ -134,6 +134,7 @@ public class FilesController {
     public Result upload(@RequestParam MultipartFile file, HttpServletRequest request) throws IOException {
         log.info("Upload File: {}", file);
         String jwt = request.getHeader("token");
+        log.info(jwt);
         User user = JwtUtil.getUserFromJwt(jwt);
         String url = iFileService.upload(file, user.getId());
         if (!url.isEmpty()) {
