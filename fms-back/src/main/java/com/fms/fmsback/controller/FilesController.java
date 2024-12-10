@@ -1,5 +1,6 @@
 package com.fms.fmsback.controller;
 
+import cn.hutool.core.io.FileUtil;
 import com.fms.fmsback.common.constants.ResultConstants;
 import com.fms.fmsback.common.result.Result;
 import com.fms.fmsback.common.utils.JwtUtil;
@@ -8,19 +9,27 @@ import com.fms.fmsback.entity.PageBean;
 import com.fms.fmsback.entity.User;
 import com.fms.fmsback.exception.ServiceException;
 import com.fms.fmsback.service.IFilesService;
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 @Slf4j
 @RestController
 @RequestMapping("/files")
 public class FilesController {
+
+    @Value("${file.upload.path}")
+    private String fileUploadPath;
 
     @Autowired
     private IFilesService iFileService;
@@ -143,6 +152,22 @@ public class FilesController {
         log.error("Failed To Upload File (Server Error): {}", file);
         throw new ServiceException(ResultConstants.INTERNAL_SERVER_ERROR, "Server Error, Unable To Upload File Please Try Again.");
     };
+
+    /**
+     * Download File By UUID
+     * @param uuid
+     * @param response
+     */
+    @GetMapping("/download/{uuid}")
+    public void download(@PathVariable String uuid, HttpServletResponse response) throws IOException {
+        File uploadFile = new File(fileUploadPath + uuid);
+        ServletOutputStream os = response.getOutputStream();
+        response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(uuid, "UTF-8"));
+        response.setContentType("application/octet-stream");
+        os.write(FileUtil.readBytes(uploadFile));
+        os.flush();
+        os.close();
+    }
 
 
 

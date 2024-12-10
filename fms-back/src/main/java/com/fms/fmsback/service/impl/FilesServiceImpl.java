@@ -151,7 +151,7 @@ public class FilesServiceImpl implements IFilesService {
         String filePath = fileUploadPath + uuid + "." + fileType;
         File uploadFile = new File(filePath);
         file.transferTo(uploadFile);
-        String url = filePath;
+        String url = uuid + "." + fileType;
         String md5 = SecureUtil.md5(uploadFile);
         Files dbFile = getFileByMd5(md5);
         if (dbFile != null) {

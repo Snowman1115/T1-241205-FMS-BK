@@ -1,5 +1,6 @@
 import axios from "axios";
 import message from "@/utils/message.js";
+import router from "@/router/index.js";
 
 const request = axios.create({
     baseURL: 'http://localhost:9090',
@@ -32,8 +33,10 @@ request.interceptors.response.use(response => {
     if (typeof res === "String") {
         res = res ? JSON.parse(res) : res;
     }
-    if (res.code === '401') {
+    if (res.code == '401') {
         message.error(res.message);
+        localStorage.removeItem("fms_user");
+        router.push('/login');
     }
     return res;
 }, error => {
