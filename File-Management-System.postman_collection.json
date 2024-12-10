@@ -1,0 +1,576 @@
+{
+	"info": {
+		"_postman_id": "093f693f-1526-4bb7-8dc6-897c6e2ea35b",
+		"name": "File-Management-System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37189642"
+	},
+	"item": [
+		{
+			"name": "FileController",
+			"item": [
+				{
+					"name": "getAllFiles",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/files?page=1&pageSize=10&fileName=&fileType=&userId=&folderId=",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"files"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								},
+								{
+									"key": "fileName",
+									"value": ""
+								},
+								{
+									"key": "fileType",
+									"value": ""
+								},
+								{
+									"key": "userId",
+									"value": ""
+								},
+								{
+									"key": "folderId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getFileById",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/files/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"files",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "uploadFile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/chanh/Downloads/PEP PROGRES UNTUK VIDEO Latest.docx"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/files/upload",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"files",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteFileById",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/files/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"files",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "batchDeleteFiles",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/files/del/batch/9,10,11,12,13,14",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"files",
+								"del",
+								"batch",
+								"9,10,11,12,13,14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "downloadFile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/files/download/bffd0187-f088-42fc-857c-7d40373481a6.jpeg",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"files",
+								"download",
+								"bffd0187-f088-42fc-857c-7d40373481a6.jpeg"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UserController",
+			"item": [
+				{
+					"name": "getAllUsers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users?page&pageSize&nickname&gender&begin&end",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": null
+								},
+								{
+									"key": "pageSize",
+									"value": null
+								},
+								{
+									"key": "nickname",
+									"value": null
+								},
+								{
+									"key": "gender",
+									"value": null
+								},
+								{
+									"key": "begin",
+									"value": null
+								},
+								{
+									"key": "end",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/1?token={{token}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"1"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addNewUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"user\",\r\n    \"password\": \"1234\",\r\n    \"firstName\": \"User\",\r\n    \"lastName\": \"1\",\r\n    \"nickname\": \"User 1\",\r\n    \"email\": \"user1@example.com\",\r\n    \"phone\": \"0123456789\",\r\n    \"gender\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUserById",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"username\": \"newUser\", \r\n    \"password\": \"newPassword123\",\r\n    \"isAccountNonExpired\": 1,\r\n    \"isAccountNonLocked\": 1,\r\n    \"isCredentialsNonExpired\": 1,\r\n    \"isEnabled\": 1,\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Doe\",\r\n    \"nickname\": \"Johnny\",\r\n    \"email\": \"john.doe@example.com\",\r\n    \"phone\": \"1234567890\",\r\n    \"gender\": 1,\r\n    \"avatar\": \"/path/to/avatar.png\",\r\n    \"isAdmin\": 0,\r\n    \"isDelete\": 0,\r\n    \"remark\": \"Updated user details\"   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUserById",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/5",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "batchDeleteUsers",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/del/batchDelete/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"del",
+								"batchDelete",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "### 1\\. GET /users - getAllUsers\n\n**Description:** Retrieve a list of users based on query parameters such as `page`, `pageSize`, `nickname`, `gender`, `begin`, and `end` for pagination and filtering.\n\n### 2\\. GET /users/{id} - getUserById\n\n**Description:** Retrieve a user by their unique `id`. Useful for fetching detailed information of a specific user.\n\n### 3\\. POST /users - addNewUser\n\n**Description:** Create a new user. The request body should contain the user data (e.g., `username`, `password`, `email`, etc.).\n\n### 4\\. PUT /users - updateUserById\n\n**Description:** Update an existing user by passing the updated user information in the request body, identified by the user's `id`.\n\n### 5\\. DELETE /users/{id} - deleteUserById\n\n**Description:** Delete a user by their unique `id`.\n\n### 6\\. DELETE /users/del/batch/{ids} - batchDeleteUsers\n\n**Description:** Delete multiple users in one request by passing a list of user IDs in the `ids` parameter."
+		},
+		{
+			"name": "AuthenticationController",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/auth/login?username=user1&password=pass1234@&verifyCode=6249&kaptchaUUID=1c82be61-6506-5835-bf6d-9302ebe28fd0",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "user1"
+								},
+								{
+									"key": "password",
+									"value": "pass1234@"
+								},
+								{
+									"key": "verifyCode",
+									"value": "6249"
+								},
+								{
+									"key": "kaptchaUUID",
+									"value": "1c82be61-6506-5835-bf6d-9302ebe28fd0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/auth/logout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							],
+							"query": [
+								{
+									"key": "jwt",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIwODIwYWY4ZC1lNDA2LTQxOGUtYWIyYS0zNTY3ZGQ1OTZhOGUiLCJzdWIiOiJ7XCJhY2NvdW50Tm9uRXhwaXJlZFwiOnRydWUsXCJhY2NvdW50Tm9uTG9ja2VkXCI6dHJ1ZSxcImF2YXRhclwiOlwiaHR0cDovL2V4YW1wbGUuY29tL2F2YXRhcjIuanBnXCIsXCJjcmVhdGVUaW1lXCI6MTczMzczODkzODAwMCxcImNyZWRlbnRpYWxzTm9uRXhwaXJlZFwiOnRydWUsXCJlbWFpbFwiOlwicmFuZG9tdXNlcjJAZXhhbXBsZS5jb21cIixcImVuYWJsZWRcIjp0cnVlLFwiZmlyc3ROYW1lXCI6XCJKYW5lXCIsXCJnZW5kZXJcIjoxLFwiaWRcIjoyLFwiaXNBZG1pblwiOjAsXCJpc0RlbGV0ZVwiOjAsXCJsYXN0TmFtZVwiOlwiU21pdGhcIixcImxvZ2luRGF0ZVwiOjE3MzM3MTMyMDAwMDAsXCJuaWNrbmFtZVwiOlwiSmFuZXlcIixcInBhc3N3b3JkXCI6XCJwYXNzMTIzNEBcIixcInBob25lXCI6XCIwOTg3NjU0MzIxXCIsXCJyZW1hcmtcIjpcIkFjdGl2ZSB1c2VyXCIsXCJ1cGRhdGVUaW1lXCI6MTczMzczODk0OTAwMCxcInVzZXJuYW1lXCI6XCJ1c2VyMlwifSIsImlzcyI6IkZNUyIsImlhdCI6MTczMzg0Nzg3NiwiZXhwIjoxNzMzODUxNDc2fQ.AvWaYuY87bIqtLzkaKwXNxUeL1Qb4-FxES1Q0a9D8Qs",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"user\",\r\n    \"password\": \"1234\",\r\n    \"firstName\": \"User\",\r\n    \"lastName\": \"1\",\r\n    \"nickname\": \"User 1\",\r\n    \"email\": \"user1@example.com\",\r\n    \"phone\": \"0123456789\",\r\n    \"gender\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/register?verifyCode=9927&kaptchaUUID=1c82be61-6506-5835-bf6d-9302ebe28fd0",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							],
+							"query": [
+								{
+									"key": "verifyCode",
+									"value": "9927"
+								},
+								{
+									"key": "kaptchaUUID",
+									"value": "1c82be61-6506-5835-bf6d-9302ebe28fd0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "1. **POST /login**\n    \n\nDescription: Authenticates a user and returns a JWT token if successful.\n\n1. **POST /register**Description: Registers a new user.\n    \n2. **POST /logout**Description: Logs out the authenticated user by invalidating their token."
+		},
+		{
+			"name": "VerifyCodeController",
+			"item": [
+				{
+					"name": "base64",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/verifyCode/base64",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"verifyCode",
+								"base64"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "image",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/verifyCode/image?uuid=1c82be61-6506-5835-bf6d-9302ebe28fd0",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"verifyCode",
+								"image"
+							],
+							"query": [
+								{
+									"key": "uuid",
+									"value": "1c82be61-6506-5835-bf6d-9302ebe28fd0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "### 1\\. **Base64 Verification Code**\n\n- **Method:** `GET`\n    \n- **URL:** `http:///verifyCode/base64`\n    \n- **Response:** Base64 encoded string of the image.\n    \n\n### 2\\. **Image Verification Code**\n\n- **Method:** `GET`\n    \n- **URL:** `http:///verifyCode/image`\n    \n- **Response:** JPEG image of the verification code."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:9090",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIwODIwYWY4ZC1lNDA2LTQxOGUtYWIyYS0zNTY3ZGQ1OTZhOGUiLCJzdWIiOiJ7XCJhY2NvdW50Tm9uRXhwaXJlZFwiOnRydWUsXCJhY2NvdW50Tm9uTG9ja2VkXCI6dHJ1ZSxcImF2YXRhclwiOlwiaHR0cDovL2V4YW1wbGUuY29tL2F2YXRhcjIuanBnXCIsXCJjcmVhdGVUaW1lXCI6MTczMzczODkzODAwMCxcImNyZWRlbnRpYWxzTm9uRXhwaXJlZFwiOnRydWUsXCJlbWFpbFwiOlwicmFuZG9tdXNlcjJAZXhhbXBsZS5jb21cIixcImVuYWJsZWRcIjp0cnVlLFwiZmlyc3ROYW1lXCI6XCJKYW5lXCIsXCJnZW5kZXJcIjoxLFwiaWRcIjoyLFwiaXNBZG1pblwiOjAsXCJpc0RlbGV0ZVwiOjAsXCJsYXN0TmFtZVwiOlwiU21pdGhcIixcImxvZ2luRGF0ZVwiOjE3MzM3MTMyMDAwMDAsXCJuaWNrbmFtZVwiOlwiSmFuZXlcIixcInBhc3N3b3JkXCI6XCJwYXNzMTIzNEBcIixcInBob25lXCI6XCIwOTg3NjU0MzIxXCIsXCJyZW1hcmtcIjpcIkFjdGl2ZSB1c2VyXCIsXCJ1cGRhdGVUaW1lXCI6MTczMzczODk0OTAwMCxcInVzZXJuYW1lXCI6XCJ1c2VyMlwifSIsImlzcyI6IkZNUyIsImlhdCI6MTczMzg0Nzg3NiwiZXhwIjoxNzMzODUxNDc2fQ.AvWaYuY87bIqtLzkaKwXNxUeL1Qb4-FxES1Q0a9D8Qs",
+			"type": "string"
+		}
+	]
+}
