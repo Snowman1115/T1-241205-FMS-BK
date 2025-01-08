@@ -4,4 +4,14 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fms.fmsback.mapper.FolderMapper">
 
+    <update id="update">
+        UPDATE fms_folder
+        <set>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="pId != null">p_id = #{pId},</if>
+            <if test="name != null">name = #{name},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
 </mapper>
