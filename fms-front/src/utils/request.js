@@ -33,7 +33,7 @@ request.interceptors.response.use(response => {
     if (typeof res === "String") {
         res = res ? JSON.parse(res) : res;
     }
-    if (res.code == '401') {
+    if (res.code == '401' || res.code =='400') {
         message.error(res.message);
         localStorage.removeItem("fms_user");
         router.push('/login');

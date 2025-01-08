@@ -123,6 +123,10 @@ const handleSelectionChange = (value) => {
 
 const handleBatchDelete = async () => {
   let ids = multipleSelection.map(item => item.id);
+  if (ids.length === 0) {
+    message.warning('Please Select Items To Delete');
+    return;
+  }
   try {
     const res = await request.delete('http://localhost:9090/files/del/batch/' + ids);
     if (res.code != '200') {
